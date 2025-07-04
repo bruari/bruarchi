@@ -1,7 +1,7 @@
 #!/bin/bash
 
-THEMES_DIR="$HOME/.config/omarchy/themes/"
-CURRENT_THEME_LINK="$HOME/.config/omarchy/current/theme"
+THEMES_DIR="$HOME/.config/bruarchi/themes/"
+CURRENT_THEME_LINK="$HOME/.config/bruarchi/current/theme"
 
 THEMES=($(find "$THEMES_DIR" -mindepth 1 | sort))
 TOTAL=${#THEMES[@]}
@@ -29,11 +29,8 @@ NEW_THEME=${THEMES[$NEXT_INDEX]}
 NEW_THEME_NAME=$(basename "$NEW_THEME")
 
 # Set current theme
-ln -nsf "$HOME/.config/omarchy/backgrounds/$NEW_THEME_NAME" "$HOME/.config/omarchy/current/backgrounds"
-ln -nsf "$NEW_THEME" "$HOME/.config/omarchy/current/theme"
-
-# Touch alacritty config to pickup the changed theme
-touch "$HOME/.config/alacritty/alacritty.toml"
+ln -nsf "$HOME/.config/bruarchi/backgrounds/$NEW_THEME_NAME" "$HOME/.config/bruarchi/current/backgrounds"
+ln -nsf "$NEW_THEME" "$HOME/.config/bruarchi/current/theme"
 
 # Restart for new theme
 pkill -SIGUSR2 waybar
@@ -41,9 +38,9 @@ makoctl reload
 hyprctl reload
 
 # Set new background
-ln -nsf $(find "$HOME/.config/omarchy/current/backgrounds/" -type f | head -n 1) "$HOME/.config/omarchy/current/background"
+ln -nsf $(find "$HOME/.config/bruarchi/current/backgrounds/" -type f | head -n 1) "$HOME/.config/bruarchi/current/background"
 pkill -x swaybg
-setsid swaybg -i "$HOME/.config/omarchy/current/background" -m fill &
+setsid swaybg -i "$HOME/.config/bruarchi/current/background" -m fill &
 
 # Notify of the new theme
 notify-send "Theme changed to $NEW_THEME_NAME" -t 2000

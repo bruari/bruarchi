@@ -1,0 +1,27 @@
+# source pre-fork stuff
+source ~/.local/share/bruarchi/default/zsh/aliases
+source ~/.local/share/bruarchi/default/zsh/envs
+
+# Set complete path
+export PATH="./bin:$HOME/.local/bin:$HOME/.local/share/bruarchi/bin:$PATH"
+
+# source antidote
+source /usr/share/zsh-antidote/antidote.zsh
+
+# initialize plugins statically
+antidote load ~/.local/share/bruarchi/default/zsh/antidote_plugins.txt
+
+# autoload
+autoload -Uz promptinit && promptinit && prompt powerlevel10k 
+
+# To customize prompt, run `p10k configure` or edit ~/.local/share/bruarchi/default/p10k.zsh.
+source ~/.local/share/bruarchi/default/zsh/p10k.zsh
+
+# fzf_history_search keybinding after zsh-vi-mode initialization
+zvm_after_init() {
+  bindkey '^_' fzf_history_search
+}
+
+# Set TERM and TERMINFO_DIRS for compatibility - https://github.com/ghostty-org/ghostty/discussions/4077
+export TERM=xterm-256color
+export TERMINFO_DIRS=/usr/share/terminfo:/opt/homebrew/share/terminfo
